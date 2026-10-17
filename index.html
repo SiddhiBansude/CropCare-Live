@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Crop Doctor</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🌱 CropCare AI
+        </div>
+
+        <div class="nav-links">
+            <a href="#home" id="homeNav">Home</a>
+            <a href="#about" id="aboutNav">About</a>
+            <a href="#detect" id="detectNav">Detection</a>
+            <a href="#history" id="historyNav">History</a>
+            <a href="#contact" id="contactNav">Contact</a>
+        </div>
+
+        <div class="language-buttons">
+            <button onclick="changeLanguage('en')">
+                English
+            </button>
+
+            <button onclick="changeLanguage('mr')">
+                मराठी
+            </button>
+        </div>
+
+    </nav>
+
+
+    <!-- ================= HOME ================= -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <div class="leaf-icon">
+                🌿
+            </div>
+
+            <h1 id="mainTitle">
+                AI-Based Crop Disease Detection
+            </h1>
+
+            <p id="mainDescription">
+                Detect crop diseases quickly using Artificial
+                Intelligence and get useful information about
+                treatment and prevention.
+            </p>
+
+            <a href="#detect" class="start-button" id="startButton">
+                Start Detection
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= DETECTION ================= -->
+
+    <section class="detection-section" id="detect">
+
+        <h2 id="detectionHeading">
+            🌿 Detect Crop Disease
+        </h2>
+
+        <p class="section-description" id="uploadDescription">
+            Upload or capture an image of a crop leaf to detect possible diseases.
+        </p>
+
+
+        <div class="detection-container">
+
+            <!-- Upload Area -->
+
+            <div class="upload-area">
+
+                <div class="upload-icon">
+                    📷
+                </div>
+
+                <h3 id="uploadHeading">
+                    Upload Crop Leaf Image
+                </h3>
+
+                <p id="uploadInstruction">
+                    Select a clear image of the affected leaf.
+                </p>
+
+
+                <!-- File Input -->
+
+                <input
+                    type="file"
+                    id="imageInput"
+                    accept="image/*"
+                >
+
+
+                <!-- Choose Image -->
+
+                <label
+                    for="imageInput"
+                    class="choose-button"
+                    id="chooseButton">
+                    📁 Choose Image
+                </label>
+
+
+                <!-- Camera Button -->
+
+                <button
+                    class="camera-button"
+                    onclick="openCamera()"
+                    id="cameraButton">
+                    📷 Open Camera
+                </button>
+
+
+                <!-- Camera Area -->
+
+                <div
+                    class="camera-container"
+                    id="cameraContainer">
+
+                    <video
+                        id="camera"
+                        autoplay
+                        playsinline>
+                    </video>
+
+                    <div class="camera-buttons">
+
+                        <button
+                            class="capture-button"
+                            onclick="captureImage()"
+                            id="captureButton">
+                            📸 Capture
+                        </button>
+
+                        <button
+                            class="close-camera-button"
+                            onclick="closeCamera()"
+                            id="closeCameraButton">
+                            ✖ Close
+                        </button>
+
+                    </div>
+
+                    <canvas id="canvas"></canvas>
+
+                </div>
+
+
+                <!-- Image Preview -->
+
+                <div class="preview-container">
+
+                    <img
+                        id="preview"
+                        src=""
+                        alt="Crop Leaf Preview">
+
+                </div>
+
+
+                <!-- Predict Button -->
+
+                <button
+                    class="predict-button"
+                    onclick="predictDisease()"
+                    id="predictButton">
+                    🤖 Predict Disease
+                </button>
+
+            </div>
+
+
+            <!-- Result Area -->
+
+            <div class="result-area">
+
+                <h3 id="resultHeading">
+                    🔍 Prediction Result
+                </h3>
+
+                <div class="result-box">
+
+                    <p class="result-label" id="diseaseLabel">
+                        Disease
+                    </p>
+
+                    <p id="diseaseResult">
+                        Please upload or capture an image.
+                    </p>
+
+
+                    <p class="result-label" id="confidenceLabel">
+                        Confidence
+                    </p>
+
+                    <p id="confidenceResult">
+                        --
+                    </p>
+
+
+                    <div class="treatment-box">
+
+                        <h4 id="treatmentHeading">
+                            💊 Treatment / Prevention
+                        </h4>
+
+                        <p id="treatmentResult">
+                            Treatment information will appear
+                            after prediction.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SEARCH HISTORY ================= -->
+
+    <section class="history-section" id="history">
+
+        <h2 id="historyHeading">
+            🕘 Search History
+        </h2>
+
+        <p
+            class="section-description"
+            id="historyDescription">
+            View your previous crop disease predictions.
+        </p>
+
+
+        <div class="history-container">
+
+            <div id="historyList">
+
+                <p class="no-history" id="noHistory">
+                    No search history available.
+                </p>
+
+            </div>
+
+
+            <button
+                class="clear-history-button"
+                onclick="clearHistory()"
+                id="clearHistoryButton">
+                🗑️ Clear History
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ABOUT ================= -->
+
+    <section class="about-section" id="about">
+
+        <h2 id="aboutHeading">
+            About the Project
+        </h2>
+
+        <p
+            class="section-description"
+            id="aboutDescription">
+            Our system uses Artificial Intelligence to help identify
+            crop diseases from leaf images.
+        </p>
+
+
+        <div class="cards">
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🤖
+                </div>
+
+                <h3 id="aiCardHeading">
+                    Artificial Intelligence
+                </h3>
+
+                <p id="aiCardText">
+                    AI technology analyzes the uploaded crop image
+                    to identify possible diseases.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🔍
+                </div>
+
+                <h3 id="diseaseCardHeading">
+                    Disease Detection
+                </h3>
+
+                <p id="diseaseCardText">
+                    The system detects possible diseases based on
+                    the characteristics of the crop leaf.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    💊
+                </div>
+
+                <h3 id="treatmentCardHeading">
+                    Treatment
+                </h3>
+
+                <p id="treatmentCardText">
+                    The system can provide basic information about
+                    treatment and prevention.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🌾
+                </div>
+
+                <h3 id="farmerCardHeading">
+                    Farmer Friendly
+                </h3>
+
+                <p id="farmerCardText">
+                    The application supports English and Marathi
+                    languages for easier use.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= HOW IT WORKS ================= -->
+
+    <section class="working-section">
+
+        <h2 id="workingHeading">
+            How It Works
+        </h2>
+
+        <div class="steps">
+
+            <div class="step">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <h3 id="step1Heading">
+                    Upload / Capture
+                </h3>
+
+                <p id="step1Text">
+                    Upload an image or capture a photo using the camera.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <h3 id="step2Heading">
+                    AI Analysis
+                </h3>
+
+                <p id="step2Text">
+                    The AI model analyzes the leaf image.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <h3 id="step3Heading">
+                    Disease Detection
+                </h3>
+
+                <p id="step3Text">
+                    The system identifies the possible disease.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    4
+                </div>
+
+                <h3 id="step4Heading">
+                    Treatment
+                </h3>
+
+                <p id="step4Text">
+                    Get basic treatment and prevention information.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer id="contact">
+
+        <div class="footer-content">
+
+            <h2>
+                🌱 CropCare AI
+            </h2>
+
+            <p id="footerDescription">
+                AI-Based Crop Disease Detection System
+            </p>
+
+            <p id="footerCopyright">
+                © 2026 CropCare AI. All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
